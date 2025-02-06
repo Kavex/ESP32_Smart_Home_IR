@@ -3,10 +3,14 @@ Smart IR for ESP32
 
 **What You need**
 
-* ESP32 Dev
+* ESP32 Development Board
 * Arduino IDE
 * IRremoteESP8266 Lib
 * TL1838 Infrared Receiver
+* Diymore PCB0100 Infrared Transmitter or another 3.3v compatible Infrared Transmitter
+* Cables!!!!
+* Breadboard for testing!!!!
+* ESP32 Terminal Adapter for testing!!!!
 
 -----
 
@@ -46,6 +50,24 @@ Vol+:0x20DF40BF
 Vol-:0x20DFC03F
 
 Input:0x20DFD02F
+
+-----
+
+**How to send IR Codes:**
+
+I used a Diymore PCB0100 Infrared Transmitter because it's easy but you could use a regular ir transmitter led with a resistor 
+
+![image](https://github.com/user-attachments/assets/9d76809a-7b43-4ce3-8907-c0de8dc1515e)
+
+ESP32 Code under Testing\IR_TransmitterTest\IR_TransmitterTest.ino
+
+edit the defined code and test it out.
+
+-----
+
+**How to turn it smart:**
+
+Working on this part, stay turned
 
 -----
   
