@@ -1,12 +1,24 @@
 # ESP32_Smart_IR
 Smart IR for ESP32
 
+**What You need**
+
 * ESP32 Dev
 * Arduino IDE
 * IRremoteESP8266 Lib
 * TL1838 Infrared Receiver
+
+-----
+
+**How to get IR Codes:**
+
+Using a TL1838 Infrared Receiver you can get the IR codes from your remotes
+
  ![image](https://github.com/user-attachments/assets/87f99944-d237-4088-a1da-7a1b9a7aedc1)
 
+ESP32 Code under Testing\IR_ReceiverTest\IR_ReceiverTest.ino
+
+You can change the pin if you want in the code
 
 ** Example Codes **
 
@@ -27,10 +39,11 @@ LG TV Codes
 
 Power:0x20DF10EF
 
-0xFFFFFFFFFFFFFFFF
-
 Vol+:0x20DF40BF
 
 Vol-:0x20DFC03F
+
 Input:0x20DFD02F
+
+-----
   
