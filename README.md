@@ -12,13 +12,15 @@ Smart IR for ESP32
 
 **How to get IR Codes:**
 
-Using a TL1838 Infrared Receiver you can get the IR codes from your remotes
+Using a TL1838 Infrared Receiver you can get the IR codes from your remotes on Pin 14
 
  ![image](https://github.com/user-attachments/assets/87f99944-d237-4088-a1da-7a1b9a7aedc1)
 
 ESP32 Code under Testing\IR_ReceiverTest\IR_ReceiverTest.ino
 
-You can change the pin if you want in the code
+Once the code is uploaded to your ESP32 you can use Serial Monitor in Arduino IDE to check the output
+
+You can change the pin if you want in the code. not all pins work so best to look it up. 
 
 ** Example Codes **
 
