@@ -20,6 +20,10 @@ Using a TL1838 Infrared Receiver you can get the IR codes from your remotes on P
 
  ![image](https://github.com/user-attachments/assets/87f99944-d237-4088-a1da-7a1b9a7aedc1)
 
+![image](https://github.com/user-attachments/assets/09b41787-d34f-4459-b06d-60ff8ecec524)
+
+![image](https://github.com/user-attachments/assets/ae272a62-c4e8-48ee-a2db-2e6d39295800)
+
 ESP32 Code under Testing\IR_ReceiverTest\IR_ReceiverTest.ino
 
 Once the code is uploaded to your ESP32 you can use Serial Monitor in Arduino IDE to check the output
