@@ -1,5 +1,6 @@
-# ESP32_Smart_IR
-Smart IR for ESP32
+# ESP32_Smart_Home_IR
+
+Using ESP32 to control IR Devices with Google assistant integration
 
 **What You need**
 
