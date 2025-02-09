@@ -6,6 +6,7 @@ Smart IR for ESP32
 * ESP32 Development Board
 * Arduino IDE
 * IRremoteESP8266 Lib
+* SinricPro Lib
 * TL1838 Infrared Receiver
 * Diymore PCB0100 Infrared Transmitter or another 3.3v compatible Infrared Transmitter
 * Cables!!!!
@@ -71,7 +72,14 @@ edit the defined code and test it out.
 
 **How to turn it smart:**
 
-Working on this part, stay turned
+We will be using https://sinric.pro/ because it's easy and offer 3 devices free 
+
+1. Add a device and name it whatever. I called mine TV
+2. Grab your Device ID from Devices Tab
+3. Go to credential tabs and get your App Key and App Secret
+4. Edit the script with wifi, IDs, and Keys
+5. Add SinricPro to Google Home
+6. Bam Done!
 
 -----
   
