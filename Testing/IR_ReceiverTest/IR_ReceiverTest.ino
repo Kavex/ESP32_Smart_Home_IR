@@ -25,15 +25,28 @@ void setup() {
 void loop() {
   // Check if an IR code has been received.
   if (irrecv.decode(&results)) {
-    // Print the raw value of the received code in hexadecimal.
+    // Print the decoded IR code in hexadecimal.
     Serial.print("Received IR code: 0x");
     Serial.println(results.value, HEX);
     
-    // Optionally, print additional details using IRutils:
-    // For a more detailed breakdown, uncomment the following line:
+    // Print a human-readable breakdown (if you want additional details).
+    // Uncomment the next line if desired.
     // Serial.println(resultToHumanReadableBasic(&results));
     
-    // Prepare to receive the next value.
+    // Print the raw timing data.
+    // The raw timing data is stored in results.rawbuf and the count is results.rawlen.
+    Serial.print("Raw IR timings (");
+    Serial.print(results.rawlen);
+    Serial.println(" values):");
+    for (uint16_t i = 0; i < results.rawlen; i++) {
+      Serial.print(results.rawbuf[i]);
+      if (i < results.rawlen - 1) {
+        Serial.print(", ");
+      }
+    }
+    Serial.println();  // Newline for clarity
+
+    // Prepare to receive the next IR value.
     irrecv.resume();  
   }
 }
