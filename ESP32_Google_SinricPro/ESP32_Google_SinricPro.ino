@@ -6,7 +6,7 @@
 
 #define REBOOT_INTERVAL 2700000  // 45 minutes in milliseconds
 unsigned long lastRebootTime = 0;
-bool bootComplete = false;  // Flag to track first boot
+bool bootComplete = false;  // Flag to prevent IR signal on first boot
 
 // Wi-Fi credentials
 const char* ssid = "Your_SSID";
@@ -15,8 +15,6 @@ const char* password = "Your_PASSWORD";
 // SinricPro credentials
 #define APP_KEY "Your_SinricPro_App_Key"
 #define APP_SECRET "Your_SinricPro_App_Secret"
-
-// SinricPro Device ID
 #define Device_ID "Your_SinricPro_Device_ID"
 
 // IR pin configuration
@@ -24,32 +22,36 @@ const uint16_t kIrLedPin = 4; // IR transmitter pin
 IRsend irsend(kIrLedPin);
 
 // IR codes
-const uint32_t IR_CODE_DEVICE_1_ON = 0x20DF10EF;
-const uint32_t IR_CODE_DEVICE_1_OFF = 0x20DF40BF;
+const uint32_t IR_CODE_DEVICE_1 = 0x20DF10EF;
 
-// Raw IR Data for ON/OFF (Replace with correct raw data)
-uint16_t rawDataOn[] = { /* Your IR data here */ };
-uint16_t rawDataOff[] = { /* Your IR data here */ };
-const uint16_t dataSizeOn = sizeof(rawDataOn) / sizeof(rawDataOn[0]);
-const uint16_t dataSizeOff = sizeof(rawDataOff) / sizeof(rawDataOff[0]);
+uint16_t rawData[] = {
+  4488, 4507, 525, 1716, 525, 1717, 524, 595, 526, 594, 526, 595,
+  525, 595, 525, 1716, 525, 595, 525, 1715, 526, 1714, 527, 595,
+  525, 594, 526, 1717, 524, 596, 524, 1716, 525, 594, 526, 1716,
+  525, 597, 523, 596, 524, 595, 525, 593, 527, 596, 525, 597,
+  523, 595, 525, 597, 523, 1716, 525, 1715, 526, 1713, 528, 1716,
+  525, 1718, 523, 1715, 526, 1717, 524
+};
+const uint16_t dataSize = sizeof(rawData) / sizeof(rawData[0]);
 
 // Callback function for device control
 bool onPowerState(const String &deviceId, bool &state) {
   if (!bootComplete) {
     Serial.println("Ignoring first command after boot.");
-    return true; // Ignore first command
+    bootComplete = true; // Allow future commands
+    return true; // Ignore first execution
   }
 
-  Serial.printf("Device %s turned %s\n", deviceId.c_str(), state ? "ON" : "OFF");
+  Serial.printf("Device %s turned %s\n", deviceId.c_str(), state ? "on" : "off");
 
   if (state) {
-    irsend.sendNEC(IR_CODE_DEVICE_1_ON, 32);
-    delay(200);
-    irsend.sendRaw(rawDataOn, dataSizeOn, 38);
+    irsend.sendNEC(IR_CODE_DEVICE_1, 32); // Turn on device 1
+    delay(500);
+    irsend.sendRaw(rawData, dataSize, 38);
   } else {
-    irsend.sendNEC(IR_CODE_DEVICE_1_OFF, 32);
-    delay(200);
-    irsend.sendRaw(rawDataOff, dataSizeOff, 38);
+    irsend.sendNEC(IR_CODE_DEVICE_1, 32); // Turn off device 1
+    delay(500);
+    irsend.sendRaw(rawData, dataSize, 38);
   }
 
   return true;
@@ -80,7 +82,7 @@ void rebootESP32() {
 void setup() {
   Serial.begin(115200);
   irsend.begin();
-  
+
   connectWiFi();
 
   // SinricPro setup
@@ -90,8 +92,7 @@ void setup() {
   SinricPro.begin(APP_KEY, APP_SECRET);
   SinricPro.restoreDeviceStates(true);
 
-  bootComplete = true;  // Set flag after setup completes
-  lastRebootTime = millis(); // Start the reboot timer
+  lastRebootTime = millis(); // Start reboot timer
 }
 
 void loop() {
